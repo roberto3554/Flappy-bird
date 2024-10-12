@@ -13,6 +13,8 @@ let pajaro;
 
 let ms = [];
 
+let inicio = true;
+
 function preload(){
   m = loadImage('montana.png');
   pajaro = loadImage('pajaro.png');
@@ -21,6 +23,8 @@ function preload(){
 function setup(){
   createCanvas(800, 800);
   background(168, 218, 220);
+  textSize(20);
+  textAlign(CENTER, CENTER);
   b = new Bird(40, height*0.5, rad);
 
   p = [];
@@ -32,6 +36,7 @@ function setup(){
   ms.push(m1);
 
   noSmooth();
+  noLoop();
 }
 
 function draw(){
@@ -73,12 +78,19 @@ function draw(){
 
   if(p[0].x < -pw)
     p.shift();
+
+  if(inicio)
+    text('Presiona la flecha superior para empezar', width*0.5, height*0.5);
 }
 
 function keyPressed(){
   if(keyCode === UP_ARROW){
     if(b.vel>-5)
       b.vel -= 5;
+    if(inicio){
+      inicio = false;
+      loop();
+    }
   }
   else if(key == 'r' && lose){
     setup();
